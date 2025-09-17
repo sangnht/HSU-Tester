@@ -17,7 +17,7 @@ public class App {
             File directory = new File(absolutePathString + pathSourceFile);
             if (!directory.exists()) {
                 directory.mkdirs(); // Tạo các thư mục cha nếu cần
-                System.out.println("Đã tạo thư mục: " + pathSourceFile);
+                System.out.println("Created folder: " + pathSourceFile);
             }
 
 
@@ -39,7 +39,7 @@ public class App {
             File directory = new File(absolutePathString + pathResultFile);
             if (!directory.exists()) {
                 directory.createNewFile();
-                System.out.println("Da tao file: " + pathResultFile);
+                System.out.println("Created file: " + pathResultFile);
             }
             FileWriter writer = new FileWriter(absolutePathString + pathResultFile, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
