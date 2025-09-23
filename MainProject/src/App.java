@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Triangle.Triangle;
+import Week3.Week3;
 
 public class App {
     /**
@@ -178,39 +179,41 @@ public class App {
     }
 
     public static void main(String[] args) {
-        int choice;
-        Scanner input = new Scanner(System.in);
-        do {
-            System.out.println("==========================================");
-            System.out.println("Xac dinh loai tam giac tu 3 canh");
-            System.out.println("[1] Nhap 3 canh cua tam giac tu ban phim");
-            System.out.println("[2] Doc du lieu tu nhieu file *.txt");
-            System.out.println("[3] Doc du lieu tu file testCase.txt");
-            System.out.println("[4] Doc du lieu tu file testCase.txt va tra ve du lieu trong file testCaseResult.txt");
-            System.out.println("[0] Thoat!");
-            System.out.println("==========================================");
-            System.out.print("Nhap lua chon cua ban: ");
-            choice = input.nextInt();
-            switch (choice) {
-                case 1:
-                    inputSides();
-                    break;
-                case 2:
-                    readFiles("/TestCases");
-                    break;
-                case 3:
-                    readFile("/TestCases/testCases.txt");
-                    break;
-                case 4:
-                    readAndWriteFile("/TestCases/testCases.txt");
-                    break;
-                case 0:
-                    System.out.println("Thoat chuong trinh!");
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le. Vui long chon lai!");
-                    break;
-            }
-        } while (choice != 0);
+        // int choice;
+        // Scanner input = new Scanner(System.in);
+        // do {
+        //     System.out.println("==========================================");
+        //     System.out.println("Xac dinh loai tam giac tu 3 canh");
+        //     System.out.println("[1] Nhap 3 canh cua tam giac tu ban phim");
+        //     System.out.println("[2] Doc du lieu tu nhieu file *.txt");
+        //     System.out.println("[3] Doc du lieu tu file testCase.txt");
+        //     System.out.println("[4] Doc du lieu tu file testCase.txt va tra ve du lieu trong file testCaseResult.txt");
+        //     System.out.println("[0] Thoat!");
+        //     System.out.println("==========================================");
+        //     System.out.print("Nhap lua chon cua ban: ");
+        //     choice = input.nextInt();
+        //     switch (choice) {
+        //         case 1:
+        //             inputSides();
+        //             break;
+        //         case 2:
+        //             readFiles("/TestCases");
+        //             break;
+        //         case 3:
+        //             readFile("/TestCases/testCases.txt");
+        //             break;
+        //         case 4:
+        //             readAndWriteFile("/TestCases/testCases.txt");
+        //             break;
+        //         case 0:
+        //             System.out.println("Thoat chuong trinh!");
+        //             break;
+        //         default:
+        //             System.out.println("Lua chon khong hop le. Vui long chon lai!");
+        //             break;
+        //     }
+        // } while (choice != 0);
+        Week3 week3 = new Week3();
+        week3.run();
     }
 }

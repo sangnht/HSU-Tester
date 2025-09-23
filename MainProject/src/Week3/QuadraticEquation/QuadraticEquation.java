@@ -31,23 +31,25 @@ public class QuadraticEquation {
     this.b = b;
     this.c = c;
   }
-  public ArrayList<Double> solve() {
-    ArrayList<Double> result = new ArrayList<>();
+  public ArrayList<String> solve() {
+    ArrayList<String> result = new ArrayList<>();
     double delta = 0;
     if (this.a != 0) {
       delta = Math.pow(this.b, 2) - 4 * this.a * this.c;
-      if (delta > 0) {
-        double x1 = (-this.b + Math.sqrt(delta) / (2 * this.a));
-        double x2 = (-this.b - Math.sqrt(delta) / (2 * this.a));
-        result.add(x1);
-        result.add(x2);
+      if (delta >= 0) {
+        Double x1 = (-this.b + Math.sqrt(delta) / (2 * this.a));
+        Double x2 = (-this.b - Math.sqrt(delta) / (2 * this.a));
+        result.add(x1.toString());
+        result.add(x2.toString());
+      } else {
+        // Vô nghiệm
+        result.add("VO_NGHIEM");
       }
     } else {
       LinearEquation ptb1 = new LinearEquation(this.b, this.c);
-      double x = ptb1.solve();
-      result.add(x);
+      Object x = ptb1.solve();
+      result.add(x.toString());
     }
-
     return result;
   }
 }

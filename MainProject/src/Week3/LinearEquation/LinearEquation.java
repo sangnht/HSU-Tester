@@ -20,12 +20,18 @@ public class LinearEquation {
     this.b = b;
   }
 
-  public Double solve() {
-    // Solves ax + b = 0 for x, returns -b/a if a != 0, otherwise throws exception
+  public String solve() {
     if (a == 0) {
-      System.out.println("Coefficient 'a' cannot be zero in a linear equation.");
-      return null;
+      if (b == 0) {
+        // Vô số nghiệm
+        return "VO_SO_NGHIEM";
+      } else {
+        // Vô nghiệm
+        return "VO_NGHIEM";
+      }
+    } else {
+      Double result = -b / a;
+      return result.toString();
     }
-    return -b / a;
   }
 }
