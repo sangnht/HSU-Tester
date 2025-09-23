@@ -33,6 +33,10 @@ public class App {
         return arrList;
     }
 
+    /**
+     * @param pathResultFile => ex: "source_file.txt"
+     * @param value => ex: "Hello World"
+     */
     public static void __writeFiles(String pathResultFile, String value) {
         try {
             String absolutePathString = "src";
@@ -43,11 +47,63 @@ public class App {
             }
             FileWriter writer = new FileWriter(absolutePathString + pathResultFile, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.newLine();
             bufferedWriter.write(value);
+            bufferedWriter.newLine();
             bufferedWriter.close();
         } catch(Exception e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
 
+    public static void clearFile(String pathResultFile) {
+        try {
+            String absolutePathString = "src";
+            File directory = new File(absolutePathString + pathResultFile);
+            if (directory.exists()) {
+                FileWriter writer = new FileWriter(absolutePathString + pathResultFile, false);
+                BufferedWriter bufferedWriter = new BufferedWriter(writer);
+                bufferedWriter.write("");
+                bufferedWriter.close();
+            }
+        } catch(Exception e) {
+            System.out.println("An error occurred while clearing the file: " + e.getMessage());
+        }
+    }
+
+    // Cau 6
+    public static void compareFiles(String pathResultFile, String pathExpectedFile) {
+        try {
+            int casePassed = 0;
+            int caseFailed = 0;
+            ArrayList<String> resultValue = new ArrayList<>();
+            ArrayList<String> expectedValue = new ArrayList<>();
+
+            ArrayList<String> arrResultData = __readFiles(pathResultFile);
+            ArrayList<String> arrExpectedData = __readFiles(pathExpectedFile);
+            if (arrResultData.size() != arrExpectedData.size()) {
+                System.out.println("Files have different number of lines.");
+                return;
+            }
+            for (int i = 0; i < arrResultData.size(); i++) {
+                if (!arrResultData.get(i).equals(arrExpectedData.get(i))) {
+                    caseFailed++;
+                    resultValue.add(arrResultData.get(i));
+                    expectedValue.add(arrExpectedData.get(i));
+                } else {
+                    casePassed++;
+                }
+            }
+            System.out.println("Total cases: " + (casePassed + caseFailed));
+            System.out.println("Passed cases: " + casePassed);
+            System.out.println("Failed cases: " + caseFailed);
+            if (caseFailed > 0) {
+                System.out.println("Failed case details:");
+                for (int i = 0; i < resultValue.size(); i++) {
+                    System.out.println("Expected: " + expectedValue.get(i) + " | Got: " + resultValue.get(i));
+                }
+            }
+        } catch(Exception e) {
+            System.out.println("An error occurred while comparing the files: " + e.getMessage());
         }
     }
 
@@ -63,7 +119,7 @@ public class App {
                     double sideC = Double.parseDouble(sides[2]);
                     Triangle triangles = new Triangle(sideA, sideB, sideC);
                     String result = processTriangle(triangles);
-                    __writeFiles("/TestCases/testCaseResult.txt", result);
+                    __writeFiles("/TestCase-v2/testCaseResult.txt", result);
                 } else {
                     System.out.println("Invalid data format in file: " + pathSourceFile);
                 }
@@ -119,7 +175,8 @@ public class App {
                                 double sideB = Double.parseDouble(sides[1]);
                                 double sideC = Double.parseDouble(sides[2]);
                                 Triangle triangle = new Triangle(sideA, sideB, sideC);
-                                processTriangle(triangle);
+                                String result = processTriangle(triangle);
+                                System.out.println("File: " + files[i].getName() + " => " + result);
                             } else {
                                 System.out.println("Invalid data format in file: " + files[i].getName());
                             }
@@ -150,8 +207,8 @@ public class App {
             sideB = Double.parseDouble(sideArray[1]);
             sideC = Double.parseDouble(sideArray[2]);
             Triangle triangle = new Triangle(sideA, sideB, sideC);
-            processTriangle(triangle);
-            input.close();
+            String result = processTriangle(triangle);
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter three numeric values separated by spaces.");
         }
@@ -183,10 +240,11 @@ public class App {
         do {
             System.out.println("==========================================");
             System.out.println("Xac dinh loai tam giac tu 3 canh");
-            System.out.println("[1] Nhap 3 canh cua tam giac tu ban phim");
-            System.out.println("[2] Doc du lieu tu nhieu file *.txt");
-            System.out.println("[3] Doc du lieu tu file testCase.txt");
-            System.out.println("[4] Doc du lieu tu file testCase.txt va tra ve du lieu trong file testCaseResult.txt");
+            System.out.println("[1] Cau 1 & 2: Nhap 3 canh cua tam giac tu ban phim");
+            System.out.println("[2] Cau 3: Doc du lieu tu nhieu file *.txt");
+            System.out.println("[3] Cau 4: Doc du lieu tu file testCase.txt");
+            System.out.println("[4] Cau 5: Doc du lieu tu file testCase.txt va tra ve du lieu trong file testCaseResult.txt");
+            System.out.println("[5] Cau 6: Doc du lieu tu file testCase.txt, tra ve du lieu trong file testCaseResult.txt va so sanh voi file testCaseExpected.txt");
             System.out.println("[0] Thoat!");
             System.out.println("==========================================");
             System.out.print("Nhap lua chon cua ban: ");
@@ -196,13 +254,19 @@ public class App {
                     inputSides();
                     break;
                 case 2:
-                    readFiles("/TestCases");
+                    readFiles("/TestCase-v1");
                     break;
                 case 3:
-                    readFile("/TestCases/testCases.txt");
+                    readFile("/TestCase-v2/testCases.txt");
                     break;
                 case 4:
-                    readAndWriteFile("/TestCases/testCases.txt");
+                    clearFile("/TestCase-v2/testCaseResult.txt");
+                    readAndWriteFile("/TestCase-v2/testCases.txt");
+                    break;
+                case 5:
+                    clearFile("/TestCase-v2/testCaseResult.txt");
+                    readAndWriteFile("/TestCase-v2/testCases.txt");
+                    compareFiles("/TestCase-v2/testCaseResult.txt", "/TestCase-v2/testCaseExpected.txt");
                     break;
                 case 0:
                     System.out.println("Thoat chuong trinh!");
