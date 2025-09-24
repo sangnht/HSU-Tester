@@ -1,0 +1,5 @@
+Case Passed: 6
+Case Failed: 1
+Total Case: 7
+Case Failed. Detail: 
+Result Value: 0.0 - Expected Value: 0.1
