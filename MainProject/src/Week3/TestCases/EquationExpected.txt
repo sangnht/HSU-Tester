@@ -1,6 +1,7 @@
-1:1
-2:3
-vo_nghiem
-1
-vo_nghiem
-vo_so_nghiem
+1.0:1.0
+3.0:2.0
+VO_NGHIEM
+1.0
+VO_NGHIEM
+0.1
+VO_SO_NGHIEM

@@ -43,7 +43,22 @@ public class MyFile {
    * @return an empty file
    */
   public void clear(String path) {
-    this.write(path, "");
+    try {
+      File directory = new File(path);
+      if (!directory.exists()) {
+        directory.createNewFile();
+        System.out.println("Canot find " + path + ". Created file: " + path);
+      }
+
+      FileWriter fileWriter = new FileWriter(path);
+      BufferedWriter buffer = new BufferedWriter(fileWriter);
+      buffer.write("");
+      buffer.close();
+
+      System.out.println("The empty has been written to " + path);
+    } catch (Exception e) {
+      System.out.println("Invalid data format in file: " + path);
+    }
   }
 
   /**
@@ -59,13 +74,13 @@ public class MyFile {
         System.out.println("Canot find " + pathResultFile + ". Created file: " + pathResultFile);
       }
 
-      FileWriter fileWriter = new FileWriter(pathResultFile);
+      FileWriter fileWriter = new FileWriter(pathResultFile, true);
       BufferedWriter buffer = new BufferedWriter(fileWriter);
       buffer.write(value);
       buffer.newLine();
       buffer.close();
 
-      System.out.println("The " + value + "has been written to " + pathResultFile);
+      System.out.println("The " + value + " has been written to " + pathResultFile);
     } catch (Exception e) {
       System.out.println("Invalid data format in file: " + pathResultFile);
     }
@@ -87,6 +102,8 @@ public class MyFile {
       ArrayList<String> resultData = this.read(pathResultFile);
       ArrayList<String> expectedData = this.read(pathExpectedFile);
 
+      this.clear(pathFinalFile);
+
       if (resultData.size() != expectedData.size()) {
         System.out.println("The arrays are unequal.");
       } else {
@@ -96,7 +113,7 @@ public class MyFile {
           } else {
             caseFailed++;
             resultValues.add(resultData.get(i));
-            expectedValues.add(resultData.get(i));
+            expectedValues.add(expectedData.get(i));
           }
         }
         this.write(pathFinalFile, "Case Passed: " + casePassed);
@@ -104,7 +121,7 @@ public class MyFile {
         this.write(pathFinalFile, "Total Case: " + (caseFailed + casePassed));
         this.write(pathFinalFile, "Case Failed. Detail: ");
         for (int i = 0; i < resultValues.size(); i++) {
-          this.write(pathResultFile, "Result Value: " + resultValues.get(i) + " - Expected Value: " + expectedValues.get(i));
+          this.write(pathFinalFile, "Result Value: " + resultValues.get(i) + " - Expected Value: " + expectedValues.get(i));
         }
 
         System.out.println("Finished Task !");

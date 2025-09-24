@@ -21,17 +21,16 @@ public class Week3 {
           QuadraticEquation equation = new QuadraticEquation(a, b, c);
           ArrayList<String> result = equation.solve();
           
-          String output = result.size() > 2 
+          String output = result.size() > 1 
             ? String.join(":", result)
             : result.get(0).toString();
 
-          myFile.write("src/Week3/TestCases/EquationOutput.txt", result.size() > 2 
-            ? output
-            : result.get(0).toString());
-          
+          myFile.write("src/Week3/TestCases/EquationOutput.txt", output);
+          myFile.compare("src/Week3/TestCases/EquationOutput.txt", "src/Week3/TestCases/EquationExpected.txt", "src/Week3/TestCases/EquationFinal.txt");
         } catch (NumberFormatException e) {
           System.out.println("Invalid number format in line: " + item);
         }
+
       } else {
         System.out.println("Invalid data format in line: " + item);
       }

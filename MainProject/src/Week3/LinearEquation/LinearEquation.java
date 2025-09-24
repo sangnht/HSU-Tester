@@ -30,7 +30,7 @@ public class LinearEquation {
         return "VO_NGHIEM";
       }
     } else {
-      Double result = -b / a;
+      Double result = b == 0 ? 0: -b / a;
       return result.toString();
     }
   }
